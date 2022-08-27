@@ -8,18 +8,19 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 // const weatherData = require('./data/weather.json');
-const {default: axios } = require('axios');
-const {response, request } = require('express');
+const { default: axios } = require('axios');
+const { response, request } = require('express');
 app.use(cors());
 
 const PORT = process.env.PORT || 3002; //define port
-
+console.log(response, request);
 
 
 app.get('/weatherData', async (request, response) => {
   console.log('requestquery ', request.query);
   const lat = request.query.lat;
   const lon = request.query.lon;
+  console.log(lat, lon);
 
   let example = await axios.get(`http://api.weatherbit.io/v2.0/forecast/daily?Key=65835d99b37443d0bf3d27469175c3c5&days=5&city=seattle`);
   console.log(example.data);
@@ -51,23 +52,23 @@ app.get('/movies', async (request, response) => {
   // response.status(200).send(getMoviesArr);
 });
 
-let getMovies = async(cityName) => {
- 
-  // try {
+// let getMovies = async(cityName) => {
 
-  //   let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${cityName}`;
-  //   let cityMovie = await axios.get(url);
+// try {
 
-  //   let selectedMovie = cityMovie.data.results.map(dailyMovie => {
-  //     return new Movie(dailyMovie);
+//   let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${cityName}`;
+//   let cityMovie = await axios.get(url);
 
-  //   });
-  //   return selectedMovie;
+//   let selectedMovie = cityMovie.data.results.map(dailyMovie => {
+//     return new Movie(dailyMovie);
 
-  // } catch (error) {
-  //   console.log(error.message);
-  // }
-};
+//   });
+//   return selectedMovie;
+
+// } catch (error) {
+//   console.log(error.message);
+// }
+// };
 class Movie {
   constructor(cityMovie) {
     this.title = cityMovie.original_title;
@@ -79,7 +80,7 @@ class Movie {
     this.img = cityMovie.poster_path;
   }
 }
-console.log(getMovies('seattle'));
+// console.log(getMovies('seattle'));
 
 class Cast {
   constructor(weatherObject) {
